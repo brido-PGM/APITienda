@@ -1,19 +1,23 @@
-const { model } = require('mongoose');
+// const { version } = require('mongoose');
 const mongoose = require('../config/conection')
 
 const schemaProducto = new mongoose.Schema ({
-    refencia: {
-        type: [Number, 'la referencia debe ser numerica'],
-        required: [true, 'la referencia es obligatoria']
+    referencia: {
+        type: Number,
+        required: [true, 'la referencia es obligatoria'],
+        validate: {
+            validator: Number.isInteger,
+            message: 'la referencia debe ser numerica'
+        }
     },
     nombre: {
-        type: [String, 'el nombre debe ser texto'],
-        required: [true, 'el nombre es obligatorio']
+        type: String,
+        required: [true, 'el nombre es obligatorio'],
     },
     precio: {
-        type: [Decimal128, 'el precio debe tener decimales'],
+        type: mongoose.Types.Decimal128,
         default: 0.0,
-        min: [0.0, 'los precios no pueden ser negativos']
+        min: [0.0, 'los precios no pueden ser negativos'],
     }
 },{versionKey:false});
 

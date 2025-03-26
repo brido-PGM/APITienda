@@ -1,15 +1,14 @@
 const exp = require('express');
 const router = exp.Router();
-const modeloProducto = require('../src/models/producto.model')
+const controladorProducto = require('../src/controllers/producto.controller')
+const controladorVendedor = require('../src/controllers/vendedor.controller')
 
-router.get('/productos', async (req,res)=>{
-    let resultado = await modeloProducto.find({});
-    console.log(resultado);
-    if(resultado) {
-        res.json({'mensaje' : resultado});
-    } else {
-        res.json({'mensaje' : 'Hubo un error'});
-    }
-});
+router.get('/crearProductos', controladorProducto.crear);
+router.get('/listarProductos', controladorProducto.listar);
+router.get('/buscarProductos/:x', controladorProducto.buscar);
+router.get('/registrarVendedor', controladorVendedor.registrar);
+router.get('/listarVendedor', controladorVendedor.listar);
+router.get('/buscarVendedor/:x', controladorVendedor.buscar);
+router.get('/editarVendedor/:x', controladorVendedor.editar);
 
 module.exports = router
